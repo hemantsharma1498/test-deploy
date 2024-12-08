@@ -27,6 +27,7 @@ class Action(BaseModel):
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket, redis: Redis = Depends(get_redis)):
+
     await websocket.accept()
     connected_clients.add(websocket)
     try:
