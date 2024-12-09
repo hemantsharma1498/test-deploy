@@ -17,7 +17,7 @@ services:
       - redis
     environment:
       - REDIS_URL=redis://test-cache:6379
-      - CORS_ORIGINS=["http://localhost:5173"]
+      - CORS_ORIGINS=["http://localhost"]
 
   nginx:
     image: nginx:alpine
