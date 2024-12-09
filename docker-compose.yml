@@ -1,0 +1,34 @@
+version: '3.8'
+services:
+  redis:
+    image: redis
+    container_name: test-cache
+    networks:
+      - td-network
+
+  server:
+    build: ./server
+    container_name: server
+    ports:
+      - "8000:8000"
+    networks:
+      - td-network
+    depends_on:
+      - redis
+    environment:
+      - REDIS_URL=redis://test-cache:6379
+      - CORS_ORIGINS=["http://localhost:5173"]
+
+  nginx:
+    build: 
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "80:80"
+    networks:
+      - td-network
+    depends_on:
+      - server
+
+networks:
+  td-network:
