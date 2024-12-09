@@ -61,7 +61,7 @@ async def set_action(action: Action, redis: Redis = Depends(get_redis)):
 @app.get("/api/count")
 async def get_count(redis: Redis = Depends(get_redis)):
     count = int(redis.get("final_count") or 0)
-    active_users = int(redis.get("active_users") or 0)
+    active_users = int(redis.get("active_users") or 1)
     redis.incr("active_users")
     return {"final_count": count, "active_users": active_users+1}
 
